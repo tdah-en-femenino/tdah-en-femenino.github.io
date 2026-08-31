@@ -2,6 +2,9 @@
 (function () {
   "use strict";
 
+  // Marca que JS está activo (habilita el colapso "Leer más")
+  document.documentElement.classList.add("js");
+
   // Menú móvil
   var toggle = document.getElementById("navToggle");
   var menu = document.getElementById("navMenu");
@@ -22,6 +25,18 @@
       }
     });
   }
+
+  // "Leer más" / "Leer menos" en las tarjetas de recursos
+  var readMoreButtons = document.querySelectorAll(".read-more");
+  Array.prototype.forEach.call(readMoreButtons, function (btn) {
+    btn.addEventListener("click", function () {
+      var desc = document.getElementById(btn.getAttribute("aria-controls"));
+      if (!desc) return;
+      var expanded = desc.classList.toggle("expanded");
+      btn.setAttribute("aria-expanded", String(expanded));
+      btn.textContent = expanded ? "Leer menos" : "Leer más";
+    });
+  });
 
   // Año dinámico en el footer
   var year = document.getElementById("year");
